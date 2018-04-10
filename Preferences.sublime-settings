@@ -3,13 +3,13 @@
 	//linux example: /dev/ttyUSBX
 	//windows example: COMXX
 	//macos example: /dev/tty.usbmodem*
-	"port": "/dev/ttyUSB0",
+	"port": "",
 
 	//type your local project full path
 	//we will copy files to there from
 	//micropython board
 	//dont forget / as last char
-	"project_path": "~/.config/sublime-text-3/Packages/micropython/",
+	"project_path": "",
 
 	//if you change it to False you never
 	//recieve notices
