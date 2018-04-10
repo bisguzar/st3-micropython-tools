@@ -1,0 +1,20 @@
+{
+	//type port of board
+	//linux example: /dev/ttyUSBX
+	//windows example: COMXX
+	//macos example: /dev/tty.usbmodem*
+	"port": "/dev/ttyUSB0",
+
+	//type your local project full path
+	//we will copy files to there from
+	//micropython board
+	//dont forget / as last char
+	"project_path": "~/.config/sublime-text-3/Packages/micropython/",
+
+	//if you change it to False you never
+	//recieve notices
+	//like 'are you sure for delete this 
+	//file'. we will delete it directly
+	//recommend: True
+	"notices": "True"
+}

@@ -1,0 +1,6 @@
+[
+    { "caption": "MicroPython: Get File", "command": "mp_get_file" },
+    { "caption": "MicroPython: Put File", "command": "mp_put_file" },
+    { "caption": "MicroPython: Delete File", "command": "mp_delete_file" },
+    { "caption": "MicroPython: Settings", "command": "mp_settings" },
+]

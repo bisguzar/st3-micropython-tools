@@ -1,0 +1,24 @@
+[
+	{ 
+	    "caption": "MicroPython", 
+		"id": "MicroPython", 
+		"children":[
+			{
+				"caption": "Get File",
+				"command": "mp_get_file"
+			},
+			{
+				"caption": "Put File",
+				"command": "mp_put_file"
+			},
+			{
+				"caption": "Delete File",
+				"command": "mp_delete_file"
+			},
+			{
+				"caption": "Settings",
+				"command": "mp_settings"
+			}
+		]
+	}
+]
