@@ -20,4 +20,4 @@ Just right-click anywhere and go 'MicroPython' selection.
 ## Using with Command Palette (Recommend)
 It is the easiest and fastest way to use MicroPython Tools. Just open command palette (ctrl+shift+p) and type 'micropython'. Now you can select an option.
 
-!['Command Palette'](https://raw.githubusercontent.com/bisguzar/st3-micropython-tools/master/images/commandpanel.gif)
+!['Command Palette'](https://raw.githubusercontent.com/bisguzar/st3-micropython-tools/master/images/commandpalette.gif)
