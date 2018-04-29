@@ -1,4 +1,4 @@
-!['Logo'](https://raw.githubusercontent.com/bisguzar/st3-micropython-tools/master/images/logo.png)
+!['Logo'](https://raw.githubusercontent.com/bisguzar/st3-micropython-tools/master/images/logo2.png)
 
 # st3-micropython-tools
 MicroPython board tools for Sublime Text 3. You can download, upload and remove files from/to your MicroPython board. 
