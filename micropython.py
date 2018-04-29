@@ -9,7 +9,6 @@ from os.path import basename
 
 
 REAL_PATH = os.path.dirname(os.path.realpath(__file__))+'/modules/'
-sys.path.insert(0, REAL_PATH)
 
 
 class Settings(object):
