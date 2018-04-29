@@ -3,7 +3,7 @@ import sublime_plugin
 
 import os
 import sys
-from .modules import pyboard, ampy
+from .modules.ampy import ampy, pyboard
 from textwrap import indent
 from os.path import basename
 
