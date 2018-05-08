@@ -16,15 +16,13 @@
                         "children":
                         [
                             {
-                                "command": "open_file",
-                                "args": {"file": "${packages}/micropython/MicroPython.sublime-settings"},
-                                "caption": "Settings – Default"
+                                "caption": "Settings",
+                                "command": "edit_settings", "args":
+                                {
+                                    "base_file": "${packages}/micropython/MicroPython.sublime-settings",
+                                    "default": "// MicroPython Settings - User\n{\n\t$0\n}\n"
+                                }
                             },
-                            {
-                                "command": "open_file",
-                                "args": {"file": "${packages}/User/MicroPython.sublime-settings"},
-                                "caption": "Settings – User"
-                            }
                         ]
                     }
                 ]
