@@ -1,18 +1,14 @@
 import sublime
 import sublime_plugin
 
-import os
 import sys
 from .modules.ampy import ampy, pyboard
 from textwrap import indent
 from os.path import basename
 
 
-REAL_PATH = os.path.dirname(os.path.realpath(__file__))+'/modules/'
-
-
 class Settings(object):
-    settings = sublime.load_settings('Preferences.sublime-settings')
+    settings = sublime.load_settings('MicroPython.sublime-settings')
 
     serial_conn = settings.get('port', False)
     project_path = settings.get('project_path', None)
@@ -190,4 +186,4 @@ class MpDeleteFileCommand(sublime_plugin.WindowCommand):
 class MpSettingsCommand(sublime_plugin.WindowCommand, Settings):
     def run(self):
         self.window.open_file(os.path.dirname(
-            os.path.realpath(__file__))+"/Preferences.sublime-settings")
+            os.path.realpath(__file__))+"/MicroPython.sublime-settings")
