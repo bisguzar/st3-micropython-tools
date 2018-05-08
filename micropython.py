@@ -185,5 +185,4 @@ class MpDeleteFileCommand(sublime_plugin.WindowCommand):
 
 class MpSettingsCommand(sublime_plugin.WindowCommand, Settings):
     def run(self):
-        self.window.open_file(os.path.dirname(
-            os.path.realpath(__file__))+"/MicroPython.sublime-settings")
+        self.window.run_command('edit_settings', {'base_file':'${packages}/micropython/MicroPython.sublime-settings'})
