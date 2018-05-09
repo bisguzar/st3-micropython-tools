@@ -4,7 +4,7 @@
 MicroPython board tools for Sublime Text 3. You can download, upload and remove files from/to your MicroPython board. 
 
 ## Installation
-  //TODO
+You can install **Micropython Tools** package with Package Control. 
   
 ## After Installation
 You need to change settings. Just open command palette (ctrl+shift+p) and select 'MicroPython: Settings' option. Costumize values for your project and save it. Re-open sublime text. It's done.
