@@ -158,7 +158,7 @@ class Pyboard:
             # device looks like an IP address
             self.serial = TelnetToSerial(device, user, password, read_timeout=10)
         else:
-            from ..all import serial
+            import serial
 
             delayed = False
             for attempt in range(wait + 1):
