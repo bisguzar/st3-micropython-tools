@@ -1,10 +1,10 @@
 !['Logo'](https://raw.githubusercontent.com/bisguzar/st3-micropython-tools/master/images/logo2.png)
 
 # st3-micropython-tools
-MicroPython board tools for Sublime Text 3. You can download, upload and remove files from/to your MicroPython board. 
+MicroPython board tools for Sublime Text 3. You can pull, push and remove files from/to your board which installed MicroPython. 
 
 ## Installation
-You can install **Micropython Tools** package with Package Control. 
+
   
 ## After Installation
 You need to change settings. Just open command palette (ctrl+shift+p) and select 'MicroPython: Settings' option. Costumize values for your project and save it. Re-open sublime text. It's done.
