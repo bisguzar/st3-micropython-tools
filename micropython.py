@@ -5,68 +5,61 @@ import sys
 from .modules.ampy import ampy, pyboard
 from textwrap import indent
 from os.path import basename
+from serial import SerialException
 
 
 class Settings(object):
     settings = sublime.load_settings("MicroPython.sublime-settings")
 
-    serial_conn = settings.get("port", False)
+    port = settings.get("port", False)
     project_path = settings.get("project_path", None)
     notices = False if settings.get("notices") == "False" else True
 
 
 class MyBoard(Settings):
 
-    def __init__(self):
-        self.port = self.serial_conn
-
     def __enter__(self):
-        self.connection = ampy.Files(pyboard.Pyboard(Settings.serial_conn))
-        return self.connection
+        return self
 
     def __exit__(self, type, value, traceback):
-        print("type", type)
-        print("value", value)
-        print("traceback", traceback)
-        close(self.connection)
+        if type or value:
+            sublime.error_message(
+                "Failed to access {}. \nPlease check connection or settings.".format(
+                    Settings.port
+                )
+            )
+            return False
+        self.pyboard.close()
+        del self.connection
+        return True
 
-        return None
+    def __repr__(self):
+        return "<MicroPython @ {}>".format(self.port)
 
-
-with MyBoard():
-    pass
-
-try:
-    myBoard = ampy.Files(pyboard.Pyboard(Settings.serial_conn))
-
-except:
-    sublime.error_message(
-        "Failed to access {}. \nPlease check connection or settings.".format(
-            Settings.serial_conn
-        )
-    )
+    def connect(self):
+        self.pyboard = pyboard.Pyboard(Settings.port)
+        self.connection = ampy.Files(self.pyboard)
 
 
 class MpGetFileCommand(sublime_plugin.WindowCommand, Settings):
 
     def run(self):
-        try:
-            self.files = myBoard.ls(long_format=False)
-            if self.files == []:
-                sublime.message_dialog(
-                    "There is no file yet. You need to upload a file before want it."
+        with MyBoard() as board:
+            board.connect()
+            try:
+                self.files = board.connection.ls(long_format=False)
+                if self.files == []:
+                    sublime.message_dialog(
+                        "There is no file yet. You need to upload a file before want it."
+                    )
+                    return
+            except NameError:
+                sublime.error_message(
+                    "Couldn't connect to {} .\n Please check port and re-open sublime text.".format(
+                        self.port
+                    )
                 )
                 return
-        except NameError:
-            sublime.error_message(
-                "Couldn't connect to {} .\n Please check port and re-open sublime text.".format(
-                    self.serial_conn
-                )
-            )
-
-        except:
-            sublime.error_message("Port is not open or wrong port.")
-            return
 
         self.files.append(self.files[0])
         self.files[0] = "Select a file:"
@@ -102,21 +95,23 @@ class MpGetFileCommand(sublime_plugin.WindowCommand, Settings):
         elif id == -1:
             sublime.message_dialog("Please select a file!")
         else:
-            try:
-                out = myBoard.get(file_name)
-            except RuntimeError as e:
-                sublime.message_dialog(e)
+            with MyBoard() as board:
+                board.connect()
+                try:
+                    out = board.connection.get(file_name)
+                except RuntimeError as e:
+                    sublime.message_dialog(str(e))
 
-            except SerialException:
-                sublime.error_message("Port is not open or wrong port.")
-                return
-            else:
-                with open(Settings.project_path + file_name, "w+") as file:
+                except SerialException:
+                    sublime.error_message("Port is not open or wrong port.")
+                    return
+                else:
+                    with open(Settings.project_path + file_name, "w+") as file:
 
-                    out = out.decode("utf-8")
-                    out = indent(out, "", lambda line: True)
+                        out = out.decode("utf-8")
+                        out = indent(out, "", lambda line: True)
 
-                    file.write(str(out))
+                        file.write(str(out))
 
                 self.window.open_file(self.project_path + file_name)
 
@@ -142,48 +137,43 @@ class MpPutFileCommand(sublime_plugin.WindowCommand):
             file_name = basename(file_path)
             file_data = open(file_path, "r").read()
 
-            try:
-                o = myBoard.put(file_name, file_data)
-                if not o:
-                    self.window.status_message(
-                        "File uploaded. Named as {}".format(file_name)
-                    )
-                else:
-                    sublime.error_message("File couldn't uploaded. An error occurred.")
+            with MyBoard() as board:
+                board.connect()
+                try:
+                    o = board.connection.put(file_name, file_data)
+                    if not o:
+                        self.window.status_message(
+                            "File uploaded. Named as {}".format(file_name)
+                        )
+                    else:
+                        sublime.error_message(
+                            "File couldn't uploaded. An error occurred."
+                        )
 
-            except NameError:
-                sublime.error_message(
-                    "Couldn't connect to {} .\n Please check port and re-open sublime text.".format(
-                        self.serial_conn
+                except NameError:
+                    sublime.error_message(
+                        "Couldn't connect to board .\n Please check port and re-open sublime text."
                     )
-                )
-
-            except SerialException:
-                sublime.error_message("Port is not open or wrong port.")
-                return
 
 
 class MpDeleteFileCommand(sublime_plugin.WindowCommand):
 
     def run(self):
-        try:
-            self.files = myBoard.ls(long_format=False)
-            if self.files == []:
-                sublime.message_dialog(
-                    "There is no file yet. You need to upload a file before want it."
-                )
-                return
+        with MyBoard() as board:
+            board.connect()
+            try:
+                self.files = board.connection.ls(long_format=False)
+                if self.files == []:
+                    sublime.message_dialog(
+                        "There is no file yet. You need to upload a file before want it."
+                    )
+                    return None
 
-        except NameError:
-            sublime.error_message(
-                "Couldn't connect to {} .\n Please check port and re-open sublime text.".format(
-                    self.serial_conn
+            except:
+                sublime.error_message(
+                    "Excepted serial connection error. Probably port using by another app."
                 )
-            )
-
-        except SerialException:
-            sublime.error_message("Port is not open or wrong port.")
-            return
+                return None
 
         self.files.append(self.files[0])
         self.files[0] = "Select a file:"
@@ -215,7 +205,9 @@ class MpDeleteFileCommand(sublime_plugin.WindowCommand):
             sublime.message_dialog("Please select a file!")
         else:
             try:
-                out = myBoard.rm(file_name)
+                with MyBoard() as board:
+                    board.connect()
+                    out = board.connection.rm(file_name)
             except RuntimeError as e:
                 sublime.message_dialog(e)
             else:

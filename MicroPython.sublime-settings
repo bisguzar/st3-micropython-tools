@@ -3,7 +3,7 @@
 	//linux example: /dev/ttyUSBX
 	//windows example: COMXX
 	//macos example: /dev/tty.usbmodem*
-	"port": "",
+	"port": "/dev/ttyUSB0",
 
 	//type your local project full path
 	//we will copy files to there from
