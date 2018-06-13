@@ -40,6 +40,12 @@ Then clone this repository:
 the plugin as a zip. Copy the *st3-micropython-tools-master* directory to its location
 (see prior section).
 
+### How to Use
+
+The best way for using this plugin is command palette. Command Palette is gem for Sublime Text. Just open command palette (`CTRL`+`SHIFT`+`P`) and type MicroPython. You can see all of options on there. Operations will run active file. For example when you select upload file option the active file will push to board.
+
+![Command Palette](https://raw.githubusercontent.com/bisguzar/st3-micropython-tools/master/images/commandpalette.gif)
+
 ## Contributing
 
 If you find any problem while using MicroPython Tools, create an [issue](https://github.com/bisguzar/st3-micropython-tools/issues/new) or fork this project and fix it yourself. Then sent a pull request. It will better 😍.
@@ -47,6 +53,11 @@ If you find any problem while using MicroPython Tools, create an [issue](https:/
 ## Versioning
 
 We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/bisguzar/st3-micropython-tools/tags). 
+
+## TODO
+
+- [ ] uPiP Installer Asistant
+- [ ] Bootloader Writer
 
 ## Authors
 
