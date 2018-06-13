@@ -1,6 +1,7 @@
 import sublime
 import sublime_plugin
 
+import os
 import sys
 from .modules.ampy import ampy, pyboard
 from textwrap import indent
@@ -67,6 +68,9 @@ class MpGetFileCommand(sublime_plugin.WindowCommand, Settings):
         self.window.show_quick_panel(self.files, self.selected)
 
     def selected(self, id):
+        if id == -1:
+            return
+
         file_name = self.files[id]
         local_files = os.listdir(self.project_path)
 
