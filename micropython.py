@@ -225,5 +225,5 @@ class MpSettingsCommand(sublime_plugin.WindowCommand, Settings):
     def run(self):
         self.window.run_command(
             "edit_settings",
-            {"base_file": "${packages}/micropython/MicroPython.sublime-settings"},
+            {"base_file": "${packages}/MicroPython Tools/MicroPython.sublime-settings"},
         )
