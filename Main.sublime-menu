@@ -19,7 +19,7 @@
                                 "caption": "Settings",
                                 "command": "edit_settings", "args":
                                 {
-                                    "base_file": "${packages}/micropython/MicroPython.sublime-settings",
+                                    "base_file": "${packages}/MicroPython Tools/MicroPython.sublime-settings",
                                     "default": "// MicroPython Settings - User\n{\n\t$0\n}\n"
                                 }
                             },
